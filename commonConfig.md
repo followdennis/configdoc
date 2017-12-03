@@ -25,3 +25,11 @@ git rm -r --cached filepath
 git stash //先存入单独的缓冲区
 git pull  //再下拉
 git stash po //删除
+#### 查看从哪个分支拉下来的
+git remote show origin //可以看到所有的分支，local branch 下面一行为下载的分支名称
+#### 查看git项目在哪个路径下
+git remote -v //可以看到git的服务器地址
+#### git创建分支，并推到远程
+git branch test  
+git push origin test 把分支推送到远程  
+
