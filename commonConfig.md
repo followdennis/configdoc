@@ -35,4 +35,11 @@ git push origin test 把分支推送到远程
 #### 删除远程分支
 git branch -r -d origin/branch-name  
 git push origin :branch-name  
+#### 拉取本地不存在的分支
+git checkout -b 本地分支名 origin/远程分支名  
+如果不成功 先执行以下git fetch再执行上面的
+#### 本地创建一个新分支（相当于克隆一个分支）
+git checkout -b 新分支的名字
+#### 将本地的分支推送到远程仓库
+git push --set-upstream origin 分支名
 
