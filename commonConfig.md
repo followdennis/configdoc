@@ -21,3 +21,7 @@ git pull --rebase origin master
 #### 补充
 删除本地库里的缓存(删除暂存区的文件，本地需要用，但不希望被版本控制)
 git rm -r --cached filepath
+#### git stash用法
+git stash //先存入单独的缓冲区
+git pull  //再下拉
+git stash po //删除
