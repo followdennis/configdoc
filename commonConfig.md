@@ -32,4 +32,7 @@ git remote -v //可以看到git的服务器地址
 #### git创建分支，并推到远程
 git branch test  
 git push origin test 把分支推送到远程  
+#### 删除远程分支
+git branch -r -d origin/branch-name  
+git push origin :branch-name  
 
