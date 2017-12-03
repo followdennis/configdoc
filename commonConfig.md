@@ -17,3 +17,7 @@ git push -u origin master
 #### 8, 如果勾选了readme.md 通过下面的操作进行合并线上产生的readme.md文件
 git pull --rebase origin master
 #### 9,完毕
+
+#### 补充
+删除本地库里的缓存(删除暂存区的文件，本地需要用，但不希望被版本控制)
+git rm -r --cached filepath
