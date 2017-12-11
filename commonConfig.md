@@ -42,4 +42,6 @@ git checkout -b 本地分支名 origin/远程分支名
 git checkout -b 新分支的名字
 #### 将本地的分支推送到远程仓库
 git push --set-upstream origin 分支名
+#### 解除本地仓库与远程仓库的关联
+git remote remove origin
 
