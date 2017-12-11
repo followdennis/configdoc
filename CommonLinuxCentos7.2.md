@@ -21,3 +21,9 @@
 	8. 查看防火墙是否开启
 service iptables status  //有active 为开启   
 	9. 开启：service iptables start
+#### 数据库授权	
+	use mysql;
+	grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+	
+	flush privileges;
+	service mysql restart;
