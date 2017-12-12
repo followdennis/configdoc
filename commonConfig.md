@@ -44,5 +44,7 @@ git checkout -b 新分支的名字
 git push --set-upstream origin 分支名
 #### 解除本地仓库与远程仓库的关联
 git remote remove origin
-#### 清楚缓存（指定某个文件)   
-git rm -r --cached file_path_name
+#### 查看本地分支与远程分支的关联关系
+git branch -vv   
+然后   
+git branch -set-upstream-to=origin/远程分支名字 本地分支名字
