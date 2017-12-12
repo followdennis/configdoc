@@ -24,6 +24,5 @@ service iptables status  //有active 为开启
 #### 数据库授权	
 	use mysql;
 	grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
-	
 	flush privileges;
 	service mysql restart;
