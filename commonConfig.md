@@ -47,4 +47,6 @@ git remote remove origin
 #### 查看本地分支与远程分支的关联关系
 git branch -vv   
 然后   
-git branch -set-upstream-to=origin/远程分支名字 本地分支名字
+git branch --set-upstream-to=origin/远程分支名字 本地分支名字
+#### 本地代码推送permission denied return 403 问题   
+解决办法：在.git文件夹中找到config 文件，修改url 在https:// 后加上git账号名即可
