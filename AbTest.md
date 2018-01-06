@@ -1,4 +1,4 @@
-###ab压力测试
+### ab压力测试
 1. 命令行下进入apache/bin/ab目录    
 >     D:\xamp\apache\bin>ab
 
