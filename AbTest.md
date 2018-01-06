@@ -4,7 +4,7 @@
 
 - 具体用法    
 >     ab [options] [http://]hostname[:port]/path
-例如：ab -n 5000 -c 200 表示：访问http://localhost/index.php >>d:\miss.html 这个脚本5000次，200并发同时执行并将结果写入到文件中去（请求失败failed requests 如果为0 说明此环境下的并发量还是可以的）
+例如：ab -n 5000 -c 200 -w http://www.baidu.com >> baidumiss.html 表示：请求baidu 这个脚本5000次，200并发同时执行并将结果写入到文件中去（请求失败failed requests 如果为0 说明此环境下的并发量还是可以的）
 
 - 不安装apache 但要使用ab命令    
 安装apache工具包的httpd-tools    
