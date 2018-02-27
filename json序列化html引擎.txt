@@ -1,0 +1,378 @@
+/*
+基于无前端经验的自定义模板生成引擎
+*/
+function type(a){return Object.prototype.toString.call(a).split(' ')[1].replace(']','')}
+var color={
+ "默认":"",
+ "原始":"layui-btn-primary",
+ "百搭":"layui-btn-normal",
+ "暖色":"layui-btn-warm",
+ "警告":"layui-btn-danger",
+ "禁用":"layui-btn-disabled"
+}
+var size={
+ "大型":"layui-btn-lg layui-btn-normal",
+ "默认":"layui-btn-normal",
+ "小型":"layui-btn-sm layui-btn-normal",
+ "迷你":"layui-btn-xs layui-btn-normal"
+}
+
+
+
+function jx(a)
+{
+ var html='';
+ if(type(a)=="Object")
+ {
+  if(a.name=="文档")
+  {
+   html+="<body>";
+   console.log("解析文档对象");
+   if(type(a.body)=="Object"){
+    console.log("解析对象");
+    jx(a.body);
+   }
+   else{
+    for(var i=0;i<a.body.length;i++)
+    {
+     console.log("解析节点");
+     html+=jx(a.body[i]);
+    }
+   }
+   html+="</body>";
+   
+  }
+  if(a.name=="表格")
+  {
+   html+='<table class="layui-table"><colgroup><col width="150"><col width="200"><col></colgroup><thead><tr>';
+   console.log("解析表格控件");
+   for(var i=0;i<a.titles[0].length;i++)
+   {
+    html+='<th>'+a.titles[0][i]+'</th>';
+   }
+   html+='</tr></thead><tbody>';
+   for(var i=0;i<a.titles[1].length;i++)
+   {
+    html+="<tr>";
+    for(var as=0;as<a.titles[1][i].length;as++)
+    {
+     if(type(a.titles[1][i][as])=="Object")
+     {
+      html+='<td>'+jx(a.titles[1][i][as])+'</td>';
+     }else{
+      html+='<td>'+a.titles[1][i][as]+'</td>';
+     }
+    }
+    html+="</tr>";
+   }
+  }
+  if(a.name=="text")
+  {
+   html+=a.text;
+  }
+  if(a.name=="面板")
+  {
+   html+='<fieldset class="layui-elem-field">';
+   html+=("解析面板控件");
+   if(type(a.data)=="Object")
+   {
+    html+=("面板内容："+a.text);
+   }else{
+    html+=("面板节点对象数组");
+    for(var i=0;i<a.data.length;i++)
+    {
+     if(type(a.data[i])=="Object")
+     {
+      html+=jx(a.data[i]);
+     }
+     //html+=("面板节点数组["+i.toString()+"]"+a.data[i].text);
+    }
+   }
+   html+="</fieldset>";
+  }
+  if(a.name=="按钮")
+  {
+   if(a.style=="默认")
+   {
+    html+='<button class="layui-btn '+color[a.color]+' '+size[a.size]+'">'+a.text+'000</button>';
+   }
+  }
+  if(a.name=="层")
+  {
+   html+='<div class="layui-row">';
+   var t=12/a.layer.length;
+   var arra=a["rows"];
+   console.log(a["rows"]==null?"1":"2");
+   for(var i=0;i<a.layer.length;i++)
+   {
+    var texta='';
+    if(arra!=12)
+    {
+     texta=arra!=null?arra[i].toString():t.toString();
+    }
+    html+=texta!=12?'<div class="layui-col-xs'+texta+'">':'';
+    if(type(a.layer[i])=="Object")
+    {
+     html+=jx(a.layer[i]);
+    }else{
+     html+=a.layer[i];
+    }
+    html+=texta!=12?'</div>':'';
+   }
+   html+='</div>';
+  }
+  if(a.name=="导航条")
+  {
+   html+='<ul class="layui-nav" lay-filter="">';
+   for(var i=0;i<a.item.length;i++)
+   {
+    html+='<li class="layui-nav-item">';
+    var date=a.item[i]["badge"];
+    var date=date!=null?'<span class="layui-badge">'+date.toString()+'</span>':'';
+    console.log(date);
+    html+='<a href="'+a.item[i].url+'">'+a.item[i].name+date+'</a>';
+    html+='</li>';
+   }
+   html+='</ul>';
+  }
+  if(a.name=="轮播")
+  {
+   html+='<div class="layui-carousel" id="test1"><div carousel-item>';
+   for(var i=0;i<a.item.length;i++)
+   {
+    if(type(a.item[i])=="Object")
+    {
+     html+='<div>'+jx(a.item[i])+'</div>';
+    }
+   }
+   html+='</div>';
+  }
+ }
+ return html;
+}
+var a={
+ name:"文档",
+ body:[
+  {
+   name:"导航条",
+   item:[
+    {
+     name:"首页",
+     badge:10,
+     url:"#"
+    },
+    {
+     name:"舞曲",
+     url:"#"
+    },
+    {
+     name:"专辑",
+     url:"#"
+    },
+    {
+     name:"导航",
+     url:"#"
+    }
+   ]
+  },
+  {
+   name:"层",
+   rows:[8,4],
+   layer:[
+    {
+     name:"text",
+     text:'<img src="http://www.ivusic.com/uploads/20180124/32924edaba71889434e6db959fe119e3.jpg" alt="">'
+    },
+    {
+     name:"层",
+     rows:12,
+     layer:[
+      {
+       name:"层",
+       layer:[
+        {
+         name:"text",
+         text:‘<div class="layui-card"><div class="layui-card-header">必读精选</div><p>第一期音乐专题：车载CD热门精选</p><p>2017全球百大DJ排行榜 | Top 100 DJs 2017</p></div>’
+        }
+       ]
+      },
+      {
+       name:"层",
+       layer:[
+        {
+         name:"text",
+         text:"占位"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   name:"轮播",
+   item:[
+    {
+     name:"text",
+     text:'<img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3900627411,3918395517&fm=27&gp=0.jpg">'
+    },
+    {
+     name:"text",
+     text:'<img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3900627411,3918395517&fm=27&gp=0.jpg">'
+    }
+   ]
+  },
+  {
+   name:"层",
+   rows:[6,6],
+   layer:[
+    {
+     name:"按钮",
+     style:"默认",
+     color:"默认",
+     size:"默认",
+     text:"层内按钮1"
+    },
+    {
+     name:"层",
+     rows:12,
+     layer:[
+      {
+       name:"层",
+       layer:[
+        {
+         name:"text",
+         text:"层内层内层"
+        }
+       ]
+      },
+      {
+       name:"层",
+       layer:[
+        {
+         name:"text",
+         text:"层内层内层"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   name:"表格",
+   titles:[
+    [
+     "表头id",
+     "表头name",
+     "年龄",
+     "成绩"
+    ],
+    [
+     [
+      {
+       name:"面板",
+       data:[
+        {
+         name:"text",
+         text:"我是列表里的面板控件"
+        }       
+       ]
+      },
+      {
+       name:"面板",
+       data:[
+        {
+         name:"text",
+         text:"我是列表里的面板控件"
+        }       
+       ]
+      },
+      {
+       name:"按钮",
+       style:"默认",
+       color:"默认",
+       size:"默认",
+       text:"表格内按钮"
+      },
+      {
+       name:"按钮",
+       style:"默认",
+       color:"默认",
+       size:"迷你",
+       text:"表格内迷你按钮"
+      }
+     ],
+     [
+      {
+       name:"面板",
+       data:[
+        {
+         name:"text",
+         text:"我是列表里的面板控件"
+        }       
+       ]
+      },
+      {
+       name:"面板",
+       data:[
+        {
+         name:"text",
+         text:"我是列表里的面板控件"
+        }       
+       ]
+      },
+      {
+       name:"text",
+       text:"66666666666"
+      },
+      {
+       name:"text",
+       text:"66666666666"
+      }
+     ]
+    ]
+   ]
+  }
+ ]
+};
+//下面这段js生成插入
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+ <title>layui在线调试</title>
+ <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1515376178709" media="all">
+ <style>
+  body{margin: 10px;}
+  .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
+ </style>
+</head>
+【生成的html手动插入这里】
+<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+layui.use('carousel', function(){
+ var carousel = layui.carousel;
+ //建造实例
+ carousel.render({
+  elem: '#test1'
+  ,width: '100%' //设置容器宽度
+  ,arrow: 'always' //始终显示箭头
+  //,anim: 'updown' //切换动画方式
+ });
+});
+layui.use('element', function(){
+ var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+  
+ //监听导航点击
+ element.on('nav(demo)', function(elem){
+  //console.log(elem)
+  layer.msg(elem.text());
+ });
+});
+</script>
+
+</body>
+</html>   
