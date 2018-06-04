@@ -35,6 +35,9 @@ git push origin test 把分支推送到远程
 #### 删除远程分支
 git branch -r -d origin/branch-name  
 git push origin :branch-name  
+#### git 1.7.0之后可以使用这种语法进行删除远程分支
+git push origin --delete branchname
+
 #### 拉取本地不存在的分支
 git checkout -b 本地分支名 origin/远程分支名  
 如果不成功 先执行以下git fetch再执行上面的
