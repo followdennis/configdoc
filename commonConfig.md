@@ -53,3 +53,8 @@ git branch -vv
 git branch --set-upstream-to=origin/远程分支名字 本地分支名字
 #### 本地代码推送permission denied return 403 问题   
 解决办法：在.git文件夹中找到config 文件，修改url 在https:// 后加上git账号名即可
+#### 如果提示repository exist 则执行
+git remote rm origin
+#### 再执行下面，就可以进行推送的
+git remote add origin git@github.com:yourname/youproject.git
+#### 如果提示不能读取远程项目，则需要从本文开始的地方进行操作一遍即可
