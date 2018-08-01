@@ -58,3 +58,4 @@ git remote rm origin
 #### 再执行下面，就可以进行推送的
 git remote add origin git@github.com:yourname/youproject.git
 #### 如果提示不能读取远程项目，则需要从本文开始的地方进行操作一遍即可
+#### 这一次没有粘贴id_rsa.pub但是却自动关联好了，上传文件的时候无法推送，执行了一下 git push --set-upstream origin master
